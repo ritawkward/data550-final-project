@@ -1,0 +1,122 @@
+---
+title: 'Final Project 2: R Markdown'
+author: "Rita Wang"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: cosmo
+    highlight: tango
+    toc: true
+    toc_float: true
+    code_folding: "show"
+    df_print: paged
+    self_contained: true 
+---
+```{r, load-package, include=FALSE}
+library(haven)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(here)
+library(purrr)
+library(gt)
+library(gtsummary)
+library(ggplot2)
+library(scales)
+library(forcats)
+library(tidyr)
+library(stringr)
+library(knitr)
+```
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.align = "center", out.width = "80%")
+```
+
+```{r, load-data}
+here::i_am("final_project_report.rmd")
+data <- readRDS(file = here("output/data_clean.rds"))
+```
+
+# Introduction
+
+This project uses publicly available data from the National Health and Nutrition Examination Survey (NHANES) 2017–2018 cycle, a nationally representative survey of the U.S. civilian, non-institutionalized population conducted by the National Center for Health Statistics (NCHS). NHANES combines detailed questionnaires, standardized physical examinations, and laboratory assessments to evaluate the health and nutritional status of participants. Each participant is identified with a unique sequence number (SEQN), which allows linkage across survey modules.
+
+For this analysis, we draw from multiple NHANES questionnaire and examination files. These include:
+
+- Sleep Disorders Questionnaire (SLQ): self-reported sleep duration and sleep disorder history.
+
+- Medical Conditions Questionnaire (MCQ): self-reported physician diagnoses, including cancer status.
+
+- Demographic (DEMO): age, sex, race/ethnicity, and socioeconomic indicators.
+
+- Body Measures (BMX): objectively measured body mass index (BMI).
+
+- Lifestyle questionnaires (SMQ, ALQ): smoking and alcohol use.
+
+- Linked Mortality File: follow-up data on vital status and cause of death through 2019.
+
+Together, these files provide a comprehensive dataset that enables investigation of sleep health in relation to cancer and other health outcomes.
+
+## Analysis Objectives
+
+The objective of this project is to provide a descriptive summary of the NHANES 2017–2018 data relevant to sleep and cancer. I will generate tables and figures that illustrate key variables (such as sleep duration and cancer diagnosis status) and highlight basic patterns in the study population. This project is focused on data exploration and visualization rather than formal modeling.
+
+# Descriptive Tables
+
+This table summarizes demographic, socioeconomic, behavioral, and sleep characteristics of NHANES 2017–2018 participants aged 20 years and older, stratified by self-reported cancer diagnosis. The table displays counts and percentages for categorical variables, along with p-values from chi-square tests comparing distributions between participants with and without cancer.
+
+```{r, table1}
+table1<- readRDS(here("output/table1.rds"))
+table1
+```
+
+Overall, 11% of participants reported a history of cancer. Compared with those without cancer, participants with cancer were more likely to be older and non-Hispanic White, and they differed across education, marital status, and income-to-poverty ratio categories. Smoking and alcohol use patterns also varied significantly by cancer history. For sleep, both weekday and weekend sleep duration distributions showed modest but significant differences, with recommended sleep (7–9 hours) being the most common in both groups. These patterns highlight demographic and behavioral differences between participants with and without cancer, providing important context for subsequent analyses of sleep and cancer associations.
+
+
+# Figures
+
+## Figure 1 - Weekday sleep duration by cancer diagnosis
+
+Figure 1 shows the distribution of weekday sleep duration categories (<7, 7-9, >9 hours) by cancer diagnosis. Bars display within-group percentages to highlight relative patterns.
+
+```{r, fig1}
+#| out.width = "60%"
+include_graphics(here("output/plot1.png"))
+```
+  
+Figure 1 shows that in both groups, most participants reported sleeping 7–9 hours per night, while shorter and longer sleep duration were less common. The proportions across sleep categories were broadly similar between those with and without a cancer diagnosis.
+
+## Figure 2 - Distribution of weekday sleep hours (numeric)
+
+Figure 2 displays the distribution of reported weekday sleep hours (numeric) overall and stratified by cancer diagnosis using overlaid densities.
+
+```{r, fig2}
+include_graphics(here("output/plot2.png"))
+```
+  
+While both groups clustered around 7–8 hours of sleep in this figure, the distribution for participants without cancer was more sharply peaked, whereas the distribution for those with cancer was flatter and extended slightly toward longer sleep durations. 
+
+## Figure 3 - Cancer prevalence by sleep duration and sex
+
+Figure 3 presents the proportion of participants reporting a cancer diagnosis within each weekday sleep category, stratified by sex.
+
+```{r, fig3}
+include_graphics(here("output/plot3.png"))
+```
+  
+In figure 3, cancer prevalence appeared somewhat higher among those reporting more than 9 hours of sleep in both men and women, with smaller differences observed between shorter and recommended sleep groups. Sex-specific differences within each sleep category were modest.
+  
+## Figure 4 - Weekday Sleep Duration by Self-Reported Cancer Site
+
+To further explore heterogeneity, we examined weekday sleep duration patterns by self-reported cancer site among participants with a cancer diagnosis.
+
+```{r, fig4}
+include_graphics(here("output/plot4.png"))
+```
+  
+In figure 4, the majority of participants reported 7–9 hours of sleep. Short sleep (<7 hours) was somewhat more common among digestive and lung/bronchus cancers, while longer sleep (>9 hours) appeared more frequently among prostate and “other” cancer sites. These descriptive patterns suggest variability in sleep behaviors across cancer sub-types, though sample sizes within each group are limited.
+  
+# Conclusions
+
+This project provided an exploratory descriptive summary of sleep duration and cancer diagnosis using NHANES 2017–2018 data. Across the study population, most adults reported 7–9 hours of weekday sleep, with broadly similar distributions between those with and without cancer. Subtle differences were observed, including slightly higher proportions of longer sleep among participants with a cancer history. When examining cancer prevalence by sleep category and sex, patterns were modest and not strongly divergent. Additional exploratory analyses by self-reported cancer site suggested variability in sleep behaviors across subgroups, with digestive and lung/bronchus cancers showing somewhat higher proportions of short sleep, while prostate and other cancers showed relatively more long sleep. These findings remain descriptive and limited by sample size but highlight potential heterogeneity in sleep characteristics across cancer sub-types. A more detailed longitudinal analyses will be needed later to clarify underlying associations.
