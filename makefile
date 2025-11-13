@@ -28,3 +28,6 @@ output/plot4.png: code/06_plot4.R output/plots_data.rds
 clean:
 	rm -f output/*.rds && rm -f output/*.png && rm -f *.html
 
+.PHONY: install
+install:
+Rscript -e "renv::restore(prompt = FALSE)"
