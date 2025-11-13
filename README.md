@@ -1,11 +1,18 @@
 # Final Project: NHANES Sleep and Cancer Analysis
 
+## Instructions to run with "make"
+
+-   Clone the repo to your desired local folder
+-   `cd` to the "data550-final-project" directory
+-   Synchronize the package repository by running `make install`
+-   Run `make` to generate all output and report
+
 ## Code Description
 
 ### `code/00_clean_data.R`
 
 -   Reads and merges multiple NHANES `.xpt` files from the `raw_data/` folder.
--   Cleans and recodes variables (e.g., cancer diagnosis, sleep duration, sociodemographics).
+-   Cleans and recodes variables (e.g., cancer diagnosis, sleep duration, socio-demographics).
 -   Saves the cleaned dataset as **`output/data_clean.rds`**.
 
 ### `code/01_table.R`
