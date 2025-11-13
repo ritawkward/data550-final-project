@@ -6,6 +6,7 @@
 -   `cd` to the "data550-final-project" directory
 -   Synchronize the package repository by running `make install`
 -   Run `make` to generate all output and report
+-   **IMPORTANT:** if you running into an error after running `make`, make sure you create an R project with my final project directory. Then it should be free of error by run `make install` and `make` again.
 
 ## Code Description
 
