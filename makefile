@@ -40,12 +40,18 @@ final_project_image: Dockerfile $(PROJECTFILES) $(RENVFILES)
 	docker build -t final_project_image .
 	touch $@
 	
-docker_report: final_project_image
-	docker run -v "$$(pwd)/report":/home/rstudio/project/report final_project_image
+docker_report:
+	docker run -v "$$(pwd)/report":/home/rstudio/project/report ritawkward/data550-final:latest
 
 .PHONY: report
 report: docker_report
 
+docker_report_windows:
+	docker run -v "/$$(pwd)/report":/home/rstudio/project/report ritawkward/data550-final:latest
+
+.PHONY: report_windows
+report: docker_report_windows
+
 ## docker for output objects
-docker_report_with_output_objects: project_image
-	docker run -v "$$(pwd)/report":/home/rstudio/project/report -v "$$(pwd)/output":/home/rstudio/project/output project_image
+docker_report_with_output_objects:
+	docker run -v "$$(pwd)/report":/home/rstudio/project/report -v "$$(pwd)/output":/home/rstudio/project/output ritawkward/data550-final:latest
