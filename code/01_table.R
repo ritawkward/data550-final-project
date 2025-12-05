@@ -2,6 +2,7 @@ library(here)
 library(dplyr)
 library(gt)
 library(gtsummary)
+library(broom)
 
 here::i_am("code/01_table.R")
 

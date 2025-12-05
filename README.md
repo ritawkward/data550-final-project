@@ -1,6 +1,12 @@
 # Final Project: NHANES Sleep and Cancer Analysis
 
-## Instructions to run with "make"
+## Building and Running the Docker Report
+
+-   Build the project image by running `make final_project_image`
+-   After the image has been built, you can generate the final HTML report by running `make report`, this will save the report HTML file to `report/final_project_report.html`.
+-   Optional: the above make rule only mounts the report folder, so only the final HTML report is retrieved locally. If you wish to retrieve all intermediate output objects created during the analysis (such as .rds and .png files as well as the report.html, run `make docker_report_with_output_objects`.
+
+## Instructions to run with "make" in your local R console with renv
 
 -   Clone the repo to your desired local folder
 -   `cd` to the "data550-final-project" directory

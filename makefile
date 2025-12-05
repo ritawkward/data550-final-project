@@ -1,4 +1,4 @@
-final_project_report.html: code/07_render_report.R final_project_report.Rmd \
+report/final_project_report.html: code/07_render_report.R final_project_report.rmd \
   output/table1.rds output/plot1.png output/plot2.png output/plot3.png \
   output/plot4.png
 	Rscript code/07_render_report.R
@@ -26,8 +26,26 @@ output/plot4.png: code/06_plot4.R output/plots_data.rds
 	
 .PHONY: clean
 clean:
-	rm -f output/*.rds && rm -f output/*.png && rm -f *.html
+	rm -f output/*.rds && rm -f output/*.png && rm -f report/*.html
 
 .PHONY: install
 install:
-Rscript -e "renv::restore(prompt = FALSE)"
+	Rscript -e "renv::restore(prompt = FALSE)"
+
+# DOCKER-ASSOCIATED RULES
+PROJECTFILES = final_project_report.rmd code/00_clean_data.R code/01_table.R code/02_plots_data.R code/03_plot1.R code/04_plot2.R code/05_plot3.R code/06_plot4.R code/07_render_report.R
+RENVFILES = renv.lock renv/activate.R renv/settings.json
+
+final_project_image: Dockerfile $(PROJECTFILES) $(RENVFILES)
+	docker build -t final_project_image .
+	touch $@
+	
+docker_report: final_project_image
+	docker run -v "$$(pwd)/report":/home/rstudio/project/report final_project_image
+
+.PHONY: report
+report: docker_report
+
+## docker for output objects
+docker_report_with_output_objects: project_image
+	docker run -v "$$(pwd)/report":/home/rstudio/project/report -v "$$(pwd)/output":/home/rstudio/project/output project_image
