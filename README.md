@@ -5,7 +5,6 @@
 -   For Mac and Linux users, build the final HTML report directly by running `make report`, this will save the report HTML file to `report/final_project_report.html`.
 -   For Windows users, build the final HTML report by running `make report_windows`.
 -   If you wish, you can build the project image locally by running `make final_project_image`
--   **IMPORTANT:** docker files and its associated rules and images were written for Mac-OS.
 -   Optional: the above make rule only mounts the report folder, so only the final HTML report is retrieved locally. If you wish to retrieve all intermediate output objects created during the analysis (such as .rds and .png files as well as the report.html, run `make docker_report_with_output_objects`.
 
 ## Instructions to run with "make" in your local R console with renv
