@@ -2,7 +2,8 @@
 
 ## Building and Running the Docker Report
 
--   For Mac and Linux users, build the final HTML report directly by running `make report`, this will save the report HTML file to `report/final_project_report.html`.
+-   For Mac and Linux users, build the final HTML report directly by running `make report`, this will save the report HTML file to `report/final_project_report.html`. 
+-   **IMPORTANT: Mac users with M chips (linux-arm64) may encounter errors trying to do the above. Try `make docker_report_Mchips` and see if this will work.**
 -   For Windows users, build the final HTML report by running `make report_windows`.
 -   If you wish, you can build the project image locally by running `make final_project_image`
 -   Optional: the above make rule only mounts the report folder, so only the final HTML report is retrieved locally. If you wish to retrieve all intermediate output objects created during the analysis (such as .rds and .png files as well as the report.html, run `make docker_report_with_output_objects`.

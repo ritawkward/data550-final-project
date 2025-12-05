@@ -53,3 +53,6 @@ report_windows: docker_report_windows
 ## docker for output objects
 docker_report_with_output_objects:
 	docker run -v "$$(pwd)/report":/home/rstudio/project/report -v "$$(pwd)/output":/home/rstudio/project/output ritawkward/data550-final:latest
+	
+docker_report_Mchips:
+	docker run --platform=linux/amd64 -v "$(pwd)/report":/home/rstudio/project/report ritawkward/data550-final:latest
