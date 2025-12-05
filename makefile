@@ -43,14 +43,12 @@ final_project_image: Dockerfile $(PROJECTFILES) $(RENVFILES)
 docker_report:
 	docker run -v "$$(pwd)/report":/home/rstudio/project/report ritawkward/data550-final:latest
 
-.PHONY: report
-report: docker_report
-
 docker_report_windows:
 	docker run -v "/$$(pwd)/report":/home/rstudio/project/report ritawkward/data550-final:latest
 
-.PHONY: report_windows
-report: docker_report_windows
+.PHONY: report report_windows
+report: docker_report
+report_windows: docker_report_windows
 
 ## docker for output objects
 docker_report_with_output_objects:
